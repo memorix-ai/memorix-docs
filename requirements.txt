@@ -10,4 +10,4 @@ mkdocs-awesome-pages-plugin>=2.9.0
 mkdocs-section-index>=0.3.0
 
 # Development dependencies
-mkdocs-serve>=1.0.0 
+# Note: mkdocs serve command is built into MkDocs - no separate package needed 
