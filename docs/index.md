@@ -8,11 +8,25 @@
 
 </div>
 
-**AI Memory Management Framework**
+<div class="hero-content">
+
+## AI Memory Management Framework
+
+**Transform your AI applications with intelligent memory systems**
 
 [![PyPI version](https://badge.fury.io/py/memorix.svg)](https://badge.fury.io/py/memorix)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
+<div class="hero-buttons">
+
+<a href="install.md" class="md-button">🚀 Get Started</a>
+<a href="quickstart.md" class="md-button">📖 Quick Start</a>
+<a href="api/memory_api.md" class="md-button">🔧 API Docs</a>
+
+</div>
+
+</div>
 
 </div>
 
@@ -68,7 +82,17 @@ Store and query contextual information alongside embeddings for powerful filteri
 
 </div>
 
+<div class="architecture-section">
+
+## 🏗️ Architecture Overview
+
+<div class="architecture-image">
+
 ![Memorix AI Architecture](../img/image.png)
+
+</div>
+
+</div>
 
 ### Quick Start
 
