@@ -1,0 +1,93 @@
+name: Documentation Issue
+description: Report a documentation issue or suggest improvements
+title: "[DOCS] "
+labels: ["documentation", "enhancement"]
+assignees:
+  - "memorix-ai/team"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to help improve our documentation!
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What type of documentation issue is this?
+      options:
+        - Bug - Something is broken or incorrect
+        - Enhancement - Suggest an improvement
+        - Missing Content - Content that should be added
+        - Outdated - Information that needs updating
+        - Broken Link - Link that doesn't work
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL
+      description: URL of the page with the issue (if applicable)
+      placeholder: "https://memorix-ai.github.io/memorix-docs/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue or suggestion in detail
+      placeholder: |
+        **What is the issue?**
+        A clear description of what the problem is.
+
+        **What should happen?**
+        A clear description of what you expected to see.
+
+        **Additional context**
+        Any other context, screenshots, or information that might help.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: "The documentation should clearly explain..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Suggestions
+      description: Do you have any suggestions for how to fix this?
+      placeholder: "Consider adding a code example or clarifying the explanation..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true 

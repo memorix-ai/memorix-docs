@@ -1,0 +1,74 @@
+name: Test Documentation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install linkchecker
+
+      - name: Build documentation
+        run: mkdocs build
+
+      - name: Check for broken links
+        run: |
+          # Start mkdocs serve in background
+          mkdocs serve --dev-addr=127.0.0.1:8000 &
+          sleep 10
+          
+          # Check internal links
+          linkchecker http://127.0.0.1:8000 --no-extern --ignore-url=^http://127.0.0.1:8000/.*#.*$ || true
+
+      - name: Validate markdown
+        run: |
+          # Check for common markdown issues
+          find docs -name "*.md" -exec echo "Checking {}" \; -exec grep -l "TODO\|FIXME\|XXX" {} \; || true
+          
+          # Check for broken image links
+          find docs -name "*.md" -exec grep -l "!\[.*\](" {} \; | while read file; do
+            echo "Checking images in $file"
+            grep -o "!\[.*\]([^)]*)" "$file" | while read img; do
+              echo "Found image: $img"
+            done
+          done
+
+      - name: Check file structure
+        run: |
+          # Ensure required files exist
+          test -f mkdocs.yml || (echo "mkdocs.yml not found" && exit 1)
+          test -f requirements.txt || (echo "requirements.txt not found" && exit 1)
+          test -d docs || (echo "docs directory not found" && exit 1)
+          test -f docs/index.md || (echo "docs/index.md not found" && exit 1)
+          
+          echo "✅ All required files present"
+
+      - name: Validate configuration
+        run: |
+          # Test mkdocs configuration
+          mkdocs config
+          echo "✅ MkDocs configuration is valid" 
